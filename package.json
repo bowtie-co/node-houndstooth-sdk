@@ -1,0 +1,27 @@
+{
+  "name": "@bowtie/houndstooth-sdk",
+  "version": "0.0.1",
+  "description": "SDK for Houndstooth Editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bowtie-co/node-houndstooth-sdk.git"
+  },
+  "keywords": [
+    "houndstooth",
+    "jekyll",
+    "sdk",
+    "github",
+    "collections",
+    "editor"
+  ],
+  "author": "Bowtie",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bowtie-co/node-houndstooth-sdk/issues"
+  },
+  "homepage": "https://github.com/bowtie-co/node-houndstooth-sdk#readme"
+}
