@@ -23,5 +23,16 @@
   "bugs": {
     "url": "https://github.com/bowtie-co/node-houndstooth-sdk/issues"
   },
-  "homepage": "https://github.com/bowtie-co/node-houndstooth-sdk#readme"
+  "homepage": "https://github.com/bowtie-co/node-houndstooth-sdk#readme",
+  "dependencies": {
+    "@octokit/rest": "^16.16.0",
+    "async": "^2.6.2",
+    "js-yaml": "^3.12.1",
+    "parse-link-header": "^1.0.1",
+    "qs": "^6.6.0",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
 }
