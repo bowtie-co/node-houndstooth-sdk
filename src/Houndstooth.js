@@ -121,14 +121,7 @@ class Houndstooth {
   }
 
   updateFile (params = {}) {
-    verifySchema(params, {
-      owner: 'string',
-      repo: 'string',
-      path: 'string',
-      message: 'string',
-      content: 'string',
-      sha: 'string'
-    })
+    verifyRequired(params, [ 'owner', 'repo', 'path', 'message', 'content', 'sha' ])
 
     if (params['ref']) {
       params['branch'] = params['ref']
@@ -138,13 +131,7 @@ class Houndstooth {
   }
 
   createFile (params = {}) {
-    verifySchema(params, {
-      owner: 'string',
-      repo: 'string',
-      path: 'string',
-      message: 'string',
-      content: 'string'
-    })
+    verifyRequired(params, [ 'owner', 'repo', 'path', 'message', 'content' ])
 
     if (params['ref']) {
       params['branch'] = params['ref']
@@ -154,13 +141,7 @@ class Houndstooth {
   }
 
   deleteFile (params = {}) {
-    verifySchema(params, {
-      owner: 'string',
-      repo: 'string',
-      path: 'string',
-      message: 'string',
-      sha: 'string'
-    })
+    verifyRequired(params, [ 'owner', 'repo', 'path', 'message', 'sha' ])
 
     if (params['ref']) {
       params['branch'] = params['ref']
