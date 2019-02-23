@@ -5,7 +5,7 @@ const { verifySchema, verifyRequired } = require('@bowtie/utils')
 
 const logger = require('./logger')
 
-class Houndstooth {
+class GitHub {
   constructor(options = {}) {
     this.logger = logger
     this.octokit = new Octokit()
@@ -212,15 +212,6 @@ class Houndstooth {
     )
   }
 
-  listCollections (params = {}) {}
-  getCollection (params = {}) {}
-  listCollectionFields (params = {}) {}
-  listCollectionItems (params = {}) {}
-  getCollectionItem (params = {}) {}
-  createCollectionItem (params = {}) {}
-  updateCollectionItem (params = {}) {}
-  deleteCollectionItem (params = {}) {}
-
   _loadPath (options = {}) {
     return new Promise(
       (resolve, reject) => {
@@ -289,4 +280,4 @@ class Houndstooth {
   }
 }
 
-module.exports = Houndstooth
+module.exports = GitHub
