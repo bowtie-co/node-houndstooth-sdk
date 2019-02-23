@@ -25,12 +25,14 @@
   },
   "homepage": "https://github.com/bowtie-co/node-houndstooth-sdk#readme",
   "dependencies": {
+    "@bowtie/utils": "^0.3.1",
     "@octokit/rest": "^16.16.0",
     "async": "^2.6.2",
     "js-yaml": "^3.12.1",
     "parse-link-header": "^1.0.1",
     "qs": "^6.6.0",
-    "toml": "^3.0.0"
+    "toml": "^3.0.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "standard": "^12.0.1"
