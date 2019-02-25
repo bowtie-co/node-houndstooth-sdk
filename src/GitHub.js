@@ -9,7 +9,6 @@ class GitHub {
   constructor(options = {}) {
     this.logger = logger
     this.octokit = new Octokit()
-    this.authorized = false
 
     if (options.token) {
       this.auth(options.token)
@@ -61,7 +60,6 @@ class GitHub {
 
   auth(token) {
     if (token) {
-      this.authorized = true
       this.octokit = new Octokit({ auth: `token ${token}` })
     }
   }
