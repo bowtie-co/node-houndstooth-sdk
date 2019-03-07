@@ -4,6 +4,7 @@ const Octokit = require('@octokit/rest')
 const { verifySchema, verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
+const Jekyll = require('./Jekyll')
 
 class GitHub extends Base {
   constructor(options = {}) {
@@ -60,6 +61,12 @@ class GitHub extends Base {
         }
       }
     )
+  }
+
+  jekyll (params = {}) {
+    verifyRequired(params, [ 'owner', 'repo' ])
+
+    return new Jekyll(Object.assign({}, params, { github: this }))
   }
 
   auth(token) {
@@ -119,6 +126,9 @@ class GitHub extends Base {
     [ 'recursive', 'flatten', 'tree' ].forEach(opt => {
       params[opt] = params[opt] && params[opt].toString().toLowerCase() === 'true'
     })
+
+    // this.logger.info('LOADING GH FILES WITH')
+    // this.logger.info(JSON.stringify(params))
 
     return this._loadPath(params)
   }

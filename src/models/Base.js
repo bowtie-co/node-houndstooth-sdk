@@ -3,13 +3,18 @@ const logger = require('../logger')
 class Base {
   constructor(options = {}) {
     this.logger = logger
-    this.options = options
-    this.cache = typeof options.cache !== 'undefined' ? !!options.cache : true
     this.cached = {}
+    this.defaultParams = {}
+
+    Object.assign(this, options)
+  }
+
+  _params() {
+    return Object.assign({}, this.defaultParams, ...arguments)
   }
 
   _isCached(key, params = {}) {
-    return this.cached[key] && this.cache && params['cache'] !== false
+    return this.cached[key]
   }
 
   _cached(key, params = {}) {
@@ -21,15 +26,17 @@ class Base {
   }
 
   _cache(key, value, params = {}) {
-    if (this.cache && params['cache'] !== false) {
-      this.cached[key] = value
-    }
+    this.cached[key] = value
 
     return value
   }
 
-  clearCache() {
-    this.cached = {}
+  clearCache(key) {
+    if (key && this.cached[key]) {
+      delete this.cached[key]
+    } else {
+      this.cached = {}
+    }
   }
 }
 

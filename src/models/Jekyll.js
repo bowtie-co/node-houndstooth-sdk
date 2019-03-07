@@ -8,31 +8,31 @@ const GitHub = require('./GitHub')
 
 class Jekyll extends Base {
   constructor(options = {}) {
+    verifyRequired(options, [ 'github', 'owner', 'repo' ])
+
     super(options)
 
-    verifyRequired(options, [ 'token', 'owner', 'repo' ])
-
-    const { token, owner, repo } = options
+    const { owner, repo } = options
 
     this.repoPath = `${owner}/${repo}`
     this.repoParams = { owner, repo }
-    this.github = new GitHub({ token })
+    this.defaultParams = this.repoParams
   }
 
   config(params = {}) {
     return new Promise(
       (resolve, reject) => {
-        if (this._isCached('config', params)) {
-          return resolve(this._cached('config', params))
+        if (this._isCached('config')) {
+          return resolve(this._cached('config'))
         }
 
         this.logger.info(`Loading jekyll config for: ${this.repoPath}`)
 
-        this.github.files(this.repoParams).then(({ files }) => {
+        this.github.files(this._params(params)).then(({ files }) => {
           const configFile = files.find(file => file.type === 'file' && /^_config\.(to|ya?)ml$/i.test(file.name))
 
           if (configFile) {
-            this.github.files(Object.assign({}, this.repoParams, { path: configFile.path })).then(({ file }) => {
+            this.github.files(this._params(params, { path: configFile.path })).then(({ file }) => {
               const content = Buffer.from(file.content, 'base64').toString()
               let config = {}
 
@@ -42,7 +42,7 @@ class Jekyll extends Base {
                 config = yaml.safeLoad(content)
               }
 
-              resolve(this._cache('config', config, params))
+              resolve(this._cache('config', config))
             }).catch(reject)
           } else {
             reject(new Error('No config file found'))
@@ -55,13 +55,13 @@ class Jekyll extends Base {
   collections(params = {}) {
     return new Promise(
       (resolve, reject) => {
-        if (this._isCached('collections', params)) {
-          return resolve(this._cached('collections', params))
+        if (this._isCached('collections')) {
+          return resolve(this._cached('collections'))
         }
 
         this.logger.info(`Loading jekyll collections for: ${this.repoPath}`)
 
-        this.config().then(config => {
+        this.config(params).then(config => {
           let pathPrefix = ''
 
           if (config['collections_dir']) {
@@ -78,21 +78,21 @@ class Jekyll extends Base {
             collections = Object.keys(config['collections']).map(collectionName => {
               return new Collection({
                 jekyll: this,
-                path: `${pathPrefix}_${collectionName}`,
-                cache: this.cache
+                name: collectionName,
+                path: `${pathPrefix}_${collectionName}`
               })
             })
           }
 
-          resolve(this._cache('collections', collections, params))
+          resolve(this._cache('collections', collections))
         }).catch(reject)
       }
     )
   }
 
-  collection(name) {
-    this.config().then(config => {
-
+  collection(name, params = {}) {
+    return this.collections(params).then(collections => {
+      return Promise.resolve(collections.find(coll => coll.name === name))
     })
   }
 }
