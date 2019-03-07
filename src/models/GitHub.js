@@ -3,11 +3,12 @@ const parse = require('parse-link-header')
 const Octokit = require('@octokit/rest')
 const { verifySchema, verifyRequired } = require('@bowtie/utils')
 
-const logger = require('./logger')
+const Base = require('./Base')
 
-class GitHub {
+class GitHub extends Base {
   constructor(options = {}) {
-    this.logger = logger
+    super(options)
+
     this.octokit = new Octokit()
     this.authorized = false
 
@@ -19,6 +20,8 @@ class GitHub {
   _exec (key, action, params = {}) {
     return new Promise(
       (resolve, reject) => {
+        this.logger.info(`Exec github for key: ${key}`)
+
         if (params['per_page'] && params['per_page'].toString() === '0') {
           let list = []
           let nextPage = '1'

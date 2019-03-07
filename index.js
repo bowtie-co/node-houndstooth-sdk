@@ -1,5 +1,1 @@
-const GitHub = require('./src/GitHub')
-
-module.exports = {
-  GitHub
-}
+module.exports = require('./src')
