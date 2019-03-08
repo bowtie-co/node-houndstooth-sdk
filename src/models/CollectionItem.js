@@ -15,9 +15,11 @@ class CollectionItem extends Base {
   }
 
   init (params = {}) {
-    this.defaults(params).then(defaults => {
+    return this.defaults(params).then(defaults => {
       this.fields = defaults['fields']
       this.markdown = defaults['content']
+
+      return Promise.resolve(this)
     })
   }
 
