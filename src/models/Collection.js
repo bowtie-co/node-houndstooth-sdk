@@ -48,7 +48,7 @@ class Collection extends Base {
 
           resolve(this._cache(path, defaults))
         }).catch(err => {
-          this.logger.warn(`Error from collection: ${this.name} [${this.path}]`)
+          this.logger.warn(`Error from collection: ${this.name} [${this.path}] - Attempting to load: ${path}`)
           this.logger.warn(err)
 
           resolve(this._cache(path, {}))
@@ -103,6 +103,17 @@ class Collection extends Base {
         }).catch(reject)
       }
     )
+  }
+
+  createItem (data, params = {}) {
+    verifyRequired(data, [ 'name' ])
+
+    data['path'] = `${this.path}/${data['name']}`
+    data['collection'] = this
+
+    const item = new CollectionItem(data)
+
+    return item.save(params)
   }
 }
 

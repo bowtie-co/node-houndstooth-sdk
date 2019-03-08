@@ -21,22 +21,59 @@ const test = async (ref = 'master') => {
     // console.log(collections)
 
     collections.forEach(async collection => {
-      const fields = await collection.fields({ ref })
+      const newItem = await collection.createItem({
+        name: `new-item-${Date.now()}.md`,
+        fields: {
+          abc: '123',
+          stuff: 'things',
+          an_array: [ 'val1', 'val2', 'val3' ]
+        },
+        markdown: `HELLO WORLD!`
+      }, {
+        message: 'Created an item from sdk!'
+      })
+
+      console.log('CREATED', newItem.name)
+      // const fields = await collection.fields({ ref })
 
       // console.log(fields)
 
-      const content = await collection.content({ ref })
+      // const content = await collection.content({ ref })
 
       // console.log(content)
 
       const items = await collection.items({ ref })
 
-      items.forEach(async item => {
-        const fields = await item.fields({ ref })
-        const content = await item.content({ ref })
+      items.reduce((promiseChain, item) => {
+        item.markdown = `\nNEW CONTENT! ${item.sha}\n`
+        return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
+      }, Promise.resolve()).then(() => {
+        console.log('Done saving items')
 
-        item.logger.info(item.path)
+        if (items.length > 4) {
+          items[items.length-1].delete({ message: 'Delete an item from sdk' }).then(item => {
+            console.log('deleted item', item.name)
+          })
+        }
       })
+
+      // const item = items[0]
+      // items.forEach(async item => {
+      //   // const fields = await item.fields({ ref })
+      //   // const content = await item.content({ ref })
+
+      //   item.logger.info(item.path)
+
+      //   item.markdown = `\nNEW CONTENT! ${item.sha}\n`
+
+      //   const updated = await item.save({ ref, message: 'Updated item from sdk!' })
+
+      //   // console.log(updated.markdown)
+
+      //   updated.markdown = `\nOOPS I UPDATED AGAIN! ${updated.sha}\n`
+
+      //   const again = await updated.save({ ref, message: 'Update again!' })
+      // })
 
       // collection.clearCache()
 
@@ -105,4 +142,4 @@ const test = async (ref = 'master') => {
 }
 
 test()
-test('test')
+// test('test')
