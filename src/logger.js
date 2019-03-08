@@ -7,6 +7,15 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const logger = createLogger({
+  level: 'info',
+  levels: {
+    error: 0,
+    warn: 1,
+    info: 2,
+    verbose: 3,
+    debug: 4,
+    silly: 5
+  },
   format: combine(
     label({ label: 'Houndstooth' }),
     timestamp(),
@@ -16,15 +25,15 @@ const logger = createLogger({
 });
 
 // const logger = winston.createLogger({
-//   level: 'info',
-//   levels: {
-//     error: 0,
-//     warn: 1,
-//     info: 2,
-//     verbose: 3,
-//     debug: 4,
-//     silly: 5
-//   },
+  // level: 'info',
+  // levels: {
+  //   error: 0,
+  //   warn: 1,
+  //   info: 2,
+  //   verbose: 3,
+  //   debug: 4,
+  //   silly: 5
+  // },
 //   transports: [new winston.transports.Console({
 //     format: winston.format.simple()
 //   })]

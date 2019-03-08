@@ -3,11 +3,13 @@ const parse = require('parse-link-header')
 const Octokit = require('@octokit/rest')
 const { verifySchema, verifyRequired } = require('@bowtie/utils')
 
-const logger = require('./logger')
+const Base = require('./Base')
+const Jekyll = require('./Jekyll')
 
-class GitHub {
+class GitHub extends Base {
   constructor(options = {}) {
-    this.logger = logger
+    super(options)
+
     this.octokit = new Octokit()
 
     if (options.token) {
@@ -18,6 +20,8 @@ class GitHub {
   _exec (key, action, params = {}) {
     return new Promise(
       (resolve, reject) => {
+        this.logger.info(`Exec github for key: ${key}`)
+
         if (params['per_page'] && params['per_page'].toString() === '0') {
           let list = []
           let nextPage = '1'
@@ -56,6 +60,12 @@ class GitHub {
         }
       }
     )
+  }
+
+  jekyll (params = {}) {
+    verifyRequired(params, [ 'owner', 'repo' ])
+
+    return new Jekyll(Object.assign({}, params, { github: this }))
   }
 
   auth(token) {
@@ -114,6 +124,9 @@ class GitHub {
     [ 'recursive', 'flatten', 'tree' ].forEach(opt => {
       params[opt] = params[opt] && params[opt].toString().toLowerCase() === 'true'
     })
+
+    // this.logger.info('LOADING GH FILES WITH')
+    // this.logger.info(JSON.stringify(params))
 
     return this._loadPath(params)
   }
