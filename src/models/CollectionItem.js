@@ -94,7 +94,7 @@ class CollectionItem extends Base {
     }
 
     return this.github.deleteFile(this._params(params)).then(resp => {
-      this.logger.info('Updated item file: ' + this.path)
+      this.logger.info('Deleted item file: ' + this.path)
       this.collection.clearCache(this.path)
 
       return Promise.resolve(this)
