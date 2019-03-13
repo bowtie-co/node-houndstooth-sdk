@@ -3,7 +3,7 @@
 require('dotenv').config()
 
 const chai = require('chai')
-var dirtyChai = require('dirty-chai')
+const dirtyChai = require('dirty-chai')
 const { expect } = chai
 
 chai.use(dirtyChai)

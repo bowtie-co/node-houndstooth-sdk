@@ -21,22 +21,14 @@ const logger = createLogger({
     timestamp(),
     myFormat
   ),
-  transports: [new transports.Console()]
+  transports: [
+    new transports.File({ filename: 'error.log', level: 'error' }),
+    new transports.File({ filename: 'combined.log' })
+  ]
 })
 
-// const logger = winston.createLogger({
-// level: 'info',
-// levels: {
-//   error: 0,
-//   warn: 1,
-//   info: 2,
-//   verbose: 3,
-//   debug: 4,
-//   silly: 5
-// },
-//   transports: [new winston.transports.Console({
-//     format: winston.format.simple()
-//   })]
-// })
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+  logger.add(new transports.Console())
+}
 
 module.exports = logger
