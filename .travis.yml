@@ -2,8 +2,9 @@ language: node_js
 node_js:
 - 8
 before_script:
-- "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
-- "chmod +x ./cc-test-reporter"
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
 - "./cc-test-reporter before-build"
 deploy:
   provider: npm
@@ -13,7 +14,7 @@ deploy:
     tags: true
     repo: bowtie-co/node-houndstooth-sdk
   api_key:
-    secure: GUWTbORNNa3kgSsb0q1lPUbYXiPvTmvScuazli8dAYGGTeohoGv/y6/b399btGYEliGCk+Cwf7DY+EiVWkttOQKjlXVhFAqSgyFDqP6YE5aCg7aniOs/v/nqdfkZw5uG9E/XrwYQ/TKrzk8M9OmIMHrZ0CpkLvHOl3YgH+acPVhw+OxZHBR645HcZV9OCD1pp69CEf2g3vELuaCZnQHq35vhVI59btAeQcbU5FSQ6oJaDcAzzLOM1nu4ENPgWAacuOgYuKOjQK3Q7NTvT7NMRyhmZhckutYMlRwwsnIcWxxjl/CvB3We+zJdwVKUqPDpZQgHR6wKklU9nsHoWT3MdrW+7QgBlysVJJWViw0jFLA5ItJvALTWyVmTNpd1b4n7DV7V/IJBXYzjqSgmAXwzZSAOTF8MAi06kmj0ICpw5y6wxkUidEVNAbtfbjbdRwVUZ9+Gf64J5MPI/AXW50gx1jS9JgSAYfjeMgR/FmQalcWC61Wh5xsgOYKBcxmYmHvaz1nqD8vIZ0DUNEM9tqpyv9MMIemQ8uiLYM6/vrY7KskwDu04Ep2DVC9F1vCQFt0YoXSXgD+XTgc8pRAqjwVRpEdZ34/z8fEJdGtDJ5xcdRKGdQWKBXZkQsv8NtUmjc8EvZa7+p/khDtBZHoY23D6ZvFtCJ0Aaj4j0V49xwbOVfw=
+    secure: g7mLNUh3H4Gw5347x1lj5IbYmUuMhWl8jUtWqSnr1abyv9IJAjUSaqXnalvsG7Jwec1XTiVBHVz1lfxT8LB6ObPCJuqG7BuDv1NObySyKg5YPDUjk+e5jMmHPkVwlFnNAUY5SVeObZQLUr7G+93djx6Fpp/nYvFmrDyXg3Z4ZaZIiI0ng0d0wjz1olOnnn5+zHDE069jQpmvXXxOADNgNT3zev+pyNmg/j1inqhMWzKvFw1HnlSTIcuW2xqCxtsy88+217xxLlvfAy344qmlCFk+s9gST6BJzIq4+tPqx4mTm8ux9e50bBQiIDAlBr/GQCGMC+BoWt7n5zFbay+svcSjg5k+5g+6q8t/HXIE92nMPQbBdAqeML12SjTfRJpThgYlCUmH8MI81GeL3fTTURK4cFOLOqzAAoGpfiTkvOlEZR1Dj7SFmJh0E75SN/YV4YVEBmPtHn/n3gpph02xxRcYuSGaobCECrbimwmFTWttQuXvEmi4cKHcNGZsWW9ucWSOP+O9HvXOXcmGm0bdyk0GiMbRdBb0F32bcyZhzuFTGMlNZ1D1biE2hdxtGGPmi/i1PQP6jTjqKPsqwSJRDuGembswCWWSm250r+L0N+J59KPr2zjRVv7MoGZBLEuyY561sHLf6H7AdaWNmrESxcs7QKCQdOGDM29Tkm/rp50=
 after_script:
 - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 env:
