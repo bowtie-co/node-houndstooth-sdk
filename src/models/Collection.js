@@ -1,11 +1,11 @@
 const yaml = require('js-yaml')
-const { verifySchema, verifyRequired } = require('@bowtie/utils')
+const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
 const CollectionItem = require('./CollectionItem')
 
 class Collection extends Base {
-  constructor(options = {}) {
+  constructor (options = {}) {
     super(options)
 
     verifyRequired(options, [ 'jekyll', 'name', 'path' ])
@@ -16,7 +16,7 @@ class Collection extends Base {
     this.defaultParams = this.jekyll.defaultParams
   }
 
-  parsePath(path, params = {}) {
+  parsePath (path, params = {}) {
     return new Promise(
       (resolve, reject) => {
         if (this._isCached(path)) {
@@ -61,7 +61,7 @@ class Collection extends Base {
     return this.parsePath(`${this.path}/_fields.md`, params)
   }
 
-  defaultsKey(key, params = {}) {
+  defaultsKey (key, params = {}) {
     return this.defaults(params).then(defaults => {
       return Promise.resolve(defaults[key])
     })

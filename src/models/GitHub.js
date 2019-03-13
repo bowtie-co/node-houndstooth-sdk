@@ -1,13 +1,13 @@
 const async = require('async')
 const parse = require('parse-link-header')
 const Octokit = require('@octokit/rest')
-const { verifySchema, verifyRequired } = require('@bowtie/utils')
+const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
 const Jekyll = require('./Jekyll')
 
 class GitHub extends Base {
-  constructor(options = {}) {
+  constructor (options = {}) {
     super(options)
 
     this.octokit = new Octokit()
@@ -68,7 +68,7 @@ class GitHub extends Base {
     return new Jekyll(Object.assign({}, params, { github: this }))
   }
 
-  auth(token) {
+  auth (token) {
     if (token) {
       this.octokit = new Octokit({ auth: `token ${token}` })
     }

@@ -1,13 +1,12 @@
 const toml = require('toml')
 const yaml = require('js-yaml')
-const { verifySchema, verifyRequired } = require('@bowtie/utils')
+const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
 const Collection = require('./Collection')
-const GitHub = require('./GitHub')
 
 class Jekyll extends Base {
-  constructor(options = {}) {
+  constructor (options = {}) {
     verifyRequired(options, [ 'github', 'owner', 'repo' ])
 
     super(options)
@@ -19,7 +18,7 @@ class Jekyll extends Base {
     this.defaultParams = this.repoParams
   }
 
-  config(params = {}) {
+  config (params = {}) {
     return new Promise(
       (resolve, reject) => {
         if (this._isCached('config')) {
@@ -52,7 +51,7 @@ class Jekyll extends Base {
     )
   }
 
-  collections(params = {}) {
+  collections (params = {}) {
     return new Promise(
       (resolve, reject) => {
         if (this._isCached('collections')) {
@@ -90,7 +89,7 @@ class Jekyll extends Base {
     )
   }
 
-  collection(name, params = {}) {
+  collection (name, params = {}) {
     return this.collections(params).then(collections => {
       return Promise.resolve(collections.find(coll => coll.name === name))
     })

@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- 8
+deploy:
+  provider: npm
+  email: ci@bowtie.co
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: bowtie-co/node-houndstooth-sdk
+  api_key:
+    secure: GUWTbORNNa3kgSsb0q1lPUbYXiPvTmvScuazli8dAYGGTeohoGv/y6/b399btGYEliGCk+Cwf7DY+EiVWkttOQKjlXVhFAqSgyFDqP6YE5aCg7aniOs/v/nqdfkZw5uG9E/XrwYQ/TKrzk8M9OmIMHrZ0CpkLvHOl3YgH+acPVhw+OxZHBR645HcZV9OCD1pp69CEf2g3vELuaCZnQHq35vhVI59btAeQcbU5FSQ6oJaDcAzzLOM1nu4ENPgWAacuOgYuKOjQK3Q7NTvT7NMRyhmZhckutYMlRwwsnIcWxxjl/CvB3We+zJdwVKUqPDpZQgHR6wKklU9nsHoWT3MdrW+7QgBlysVJJWViw0jFLA5ItJvALTWyVmTNpd1b4n7DV7V/IJBXYzjqSgmAXwzZSAOTF8MAi06kmj0ICpw5y6wxkUidEVNAbtfbjbdRwVUZ9+Gf64J5MPI/AXW50gx1jS9JgSAYfjeMgR/FmQalcWC61Wh5xsgOYKBcxmYmHvaz1nqD8vIZ0DUNEM9tqpyv9MMIemQ8uiLYM6/vrY7KskwDu04Ep2DVC9F1vCQFt0YoXSXgD+XTgc8pRAqjwVRpEdZ34/z8fEJdGtDJ5xcdRKGdQWKBXZkQsv8NtUmjc8EvZa7+p/khDtBZHoY23D6ZvFtCJ0Aaj4j0V49xwbOVfw=

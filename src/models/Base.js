@@ -1,7 +1,16 @@
 const logger = require('../logger')
 
+/**
+ * Base class for shared logic
+ */
 class Base {
-  constructor(options = {}) {
+  /**
+   * Constructor for a Base object
+   *
+   * @constructor
+   * @param {Object} [options] - Options for this object, copied onto itself
+   */
+  constructor (options = {}) {
     this.logger = logger
     this.cached = {}
     this.defaultParams = {}
@@ -9,29 +18,55 @@ class Base {
     Object.assign(this, options)
   }
 
-  _params() {
+  /**
+   * Construct params object, starting with this.defaultParams
+   *
+   * @returns {Object} - Returns any params given merged ontop of defaultParams
+   */
+  _params () {
     return Object.assign({}, this.defaultParams, ...arguments)
   }
 
-  _isCached(key, params = {}) {
-    return this.cached[key]
+  /**
+   * Check if a given key is cached
+   *
+   * @param {String} key - Key to check for in the cache
+   */
+  _isCached (key) {
+    return typeof this.cached[key] !== 'undefined'
   }
 
-  _cached(key, params = {}) {
-    if (typeof this.cached[key] !== 'undefined') {
+  /**
+   * Get cached value for a given key
+   *
+   * @param {String} key - Key to return value for from cache
+   */
+  _cached (key) {
+    if (this._isCached(key)) {
       this.logger.info(`Loading cached key: ${key}`)
     }
 
     return this.cached[key]
   }
 
-  _cache(key, value, params = {}) {
+  /**
+   * Cache a new key/value pair
+   *
+   * @param {String} key - Key to be cached
+   * @param {*} value - Value to be cached
+   */
+  _cache (key, value) {
     this.cached[key] = value
 
     return value
   }
 
-  clearCache(key) {
+  /**
+   * Clear key (or all keys) from cache
+   *
+   * @param {String} [key] - Optional key to clear from cache, otherwise clear all
+   */
+  clearCache (key) {
     if (key && this.cached[key]) {
       delete this.cached[key]
     } else {

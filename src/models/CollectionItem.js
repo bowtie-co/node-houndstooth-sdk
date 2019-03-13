@@ -1,10 +1,10 @@
 const yaml = require('js-yaml')
-const { verifySchema, verifyRequired } = require('@bowtie/utils')
+const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
 
 class CollectionItem extends Base {
-  constructor(options = {}) {
+  constructor (options = {}) {
     verifyRequired(options, [ 'collection', 'name', 'path' ])
 
     super(options)
@@ -50,7 +50,7 @@ class CollectionItem extends Base {
     return this.collection.parsePath(this.path, params)
   }
 
-  defaultsKey(key, params = {}) {
+  defaultsKey (key, params = {}) {
     return this.defaults(params).then(defaults => {
       return Promise.resolve(defaults[key])
     })

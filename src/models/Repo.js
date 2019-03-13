@@ -1,9 +1,9 @@
-const { verifySchema, verifyRequired } = require('@bowtie/utils')
+const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
 
 class Repo extends Base {
-  constructor(options = {}) {
+  constructor (options = {}) {
     verifyRequired(options, [ 'github', 'owner', 'repo' ])
 
     super(options)

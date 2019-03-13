@@ -4,7 +4,16 @@
   "description": "SDK for Houndstooth Editor",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "jsdoc --configure .jsdoc.json --verbose",
+    "doc:commit": "npm run doc && git add docs && git commit -m 'Generated Docs'",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "test": "npm run lint && nyc mocha test/**/*.spec.js && npm run nyc:report",
+    "test:watch": "mocha test/**/*.spec.js --watch",
+    "preversion": "npm test && npm run doc:commit",
+    "postversion": "git push --follow-tags",
+    "nyc:check": "nyc check-coverage --lines 95 --functions 95 --branches 95",
+    "nyc:report": "nyc report --reporter=lcov"
   },
   "repository": {
     "type": "git",
@@ -35,7 +44,13 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
     "dotenv": "^6.2.0",
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "standard": "^12.0.1"
   }
 }

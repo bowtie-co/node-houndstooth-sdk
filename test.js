@@ -51,7 +51,7 @@ const test = async (ref = 'master') => {
         console.log('Done saving items')
 
         if (items.length > 4) {
-          items[items.length-1].delete({ message: 'Delete an item from sdk' }).then(item => {
+          items[items.length - 1].delete({ message: 'Delete an item from sdk' }).then(item => {
             console.log('deleted item', item.name)
           })
         }
@@ -85,7 +85,6 @@ const test = async (ref = 'master') => {
 
       // console.log(items2.map(i => i.name))
     })
-
 
     // const { user } = await github.user()
     // console.log(user.login)
