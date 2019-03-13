@@ -5,7 +5,17 @@ const { verifyRequired } = require('@bowtie/utils')
 const Base = require('./Base')
 const Collection = require('./Collection')
 
+/**
+ * Jekyll class
+ */
 class Jekyll extends Base {
+  /**
+   * Create a new Jekyll object
+   * @param {Object} options - Options for this Jekyll instance
+   * @param {GitHub} options.github - GitHub instance for this Jekyll object
+   * @param {String} options.owner - Owner name of repo for this Jekyll object
+   * @param {String} options.repo - Name of repo for this Jekyll object
+   */
   constructor (options = {}) {
     verifyRequired(options, [ 'github', 'owner', 'repo' ])
 
@@ -18,6 +28,11 @@ class Jekyll extends Base {
     this.defaultParams = this.repoParams
   }
 
+  /**
+   * Load Jekyll config from repo (_config.yaml or _config.toml)
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<Object>} - Returns promise with response data
+   */
   config (params = {}) {
     return new Promise(
       (resolve, reject) => {
@@ -51,6 +66,11 @@ class Jekyll extends Base {
     )
   }
 
+  /**
+   * Load collections for this Jekyll instance
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<Array>} - Returns promise with array of Collections
+   */
   collections (params = {}) {
     return new Promise(
       (resolve, reject) => {
@@ -89,6 +109,12 @@ class Jekyll extends Base {
     )
   }
 
+  /**
+   * Load a specific collection by name
+   * @param {String} name - Name of collection to load
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<Collection>} - Returns promise with a single Collection
+   */
   collection (name, params = {}) {
     return this.collections(params).then(collections => {
       return Promise.resolve(collections.find(coll => coll.name === name))

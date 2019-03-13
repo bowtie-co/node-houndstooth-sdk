@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Base.js - Documentation</title>
+    <title>Jekyll.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Base.js</h1>
+    <h1 class="page-title">Jekyll.js</h1>
     
 
     
@@ -39,84 +39,131 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const logger = require('../logger')
+            <pre class="prettyprint source linenums"><code>const toml = require('toml')
+const yaml = require('js-yaml')
+const { verifyRequired } = require('@bowtie/utils')
+
+const Base = require('./Base')
+const Collection = require('./Collection')
 
 /**
- * Base class for shared logic
+ * Jekyll class
  */
-class Base {
+class Jekyll extends Base {
   /**
-   * Constructor for a Base object
-   *
-   * @constructor
-   * @param {Object} [options] - Options for this object, copied onto itself
+   * Create a new Jekyll object
+   * @param {Object} options - Options for this Jekyll instance
+   * @param {GitHub} options.github - GitHub instance for this Jekyll object
+   * @param {String} options.owner - Owner name of repo for this Jekyll object
+   * @param {String} options.repo - Name of repo for this Jekyll object
    */
   constructor (options = {}) {
-    this.logger = logger
-    this.cached = {}
-    this.defaultParams = {}
+    verifyRequired(options, [ 'github', 'owner', 'repo' ])
 
-    Object.assign(this, options)
+    super(options)
+
+    const { owner, repo } = options
+
+    this.repoPath = `${owner}/${repo}`
+    this.repoParams = { owner, repo }
+    this.defaultParams = this.repoParams
   }
 
   /**
-   * Construct params object, starting with this.defaultParams
-   *
-   * @returns {Object} - Returns any params given merged ontop of defaultParams
+   * Load Jekyll config from repo (_config.yaml or _config.toml)
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise&lt;Object>} - Returns promise with response data
    */
-  _params () {
-    return Object.assign({}, this.defaultParams, ...arguments)
+  config (params = {}) {
+    return new Promise(
+      (resolve, reject) => {
+        if (this._isCached('config')) {
+          return resolve(this._cached('config'))
+        }
+
+        this.logger.info(`Loading jekyll config for: ${this.repoPath}`)
+
+        this.github.files(this._params(params)).then(({ files }) => {
+          const configFile = files.find(file => file.type === 'file' &amp;&amp; /^_config\.(to|ya?)ml$/i.test(file.name))
+
+          if (configFile) {
+            this.github.files(this._params(params, { path: configFile.path })).then(({ file }) => {
+              const content = Buffer.from(file.content, 'base64').toString()
+              let config = {}
+
+              if (/toml$/.test(file.path)) {
+                config = toml.parse(content)
+              } else {
+                config = yaml.safeLoad(content)
+              }
+
+              resolve(this._cache('config', config))
+            }).catch(reject)
+          } else {
+            reject(new Error('No config file found'))
+          }
+        }).catch(reject)
+      }
+    )
   }
 
   /**
-   * Check if a given key is cached
-   *
-   * @param {String} key - Key to check for in the cache
+   * Load collections for this Jekyll instance
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise&lt;Array>} - Returns promise with array of Collections
    */
-  _isCached (key) {
-    return typeof this.cached[key] !== 'undefined'
+  collections (params = {}) {
+    return new Promise(
+      (resolve, reject) => {
+        if (this._isCached('collections')) {
+          return resolve(this._cached('collections'))
+        }
+
+        this.logger.info(`Loading jekyll collections for: ${this.repoPath}`)
+
+        this.config(params).then(config => {
+          let pathPrefix = ''
+
+          if (config['collections_dir']) {
+            pathPrefix = config['collections_dir']
+          }
+
+          if (pathPrefix.trim() !== '' &amp;&amp; !/\/$/.test(pathPrefix)) {
+            pathPrefix += '/'
+          }
+
+          let collections = []
+
+          if (config['collections']) {
+            collections = Object.keys(config['collections']).map(collectionName => {
+              return new Collection({
+                jekyll: this,
+                name: collectionName,
+                path: `${pathPrefix}_${collectionName}`
+              })
+            })
+          }
+
+          resolve(this._cache('collections', collections))
+        }).catch(reject)
+      }
+    )
   }
 
   /**
-   * Get cached value for a given key
-   *
-   * @param {String} key - Key to return value for from cache
+   * Load a specific collection by name
+   * @param {String} name - Name of collection to load
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise&lt;Collection>} - Returns promise with a single Collection
    */
-  _cached (key) {
-    if (this._isCached(key)) {
-      this.logger.info(`Loading cached key: ${key}`)
-    }
-
-    return this.cached[key]
-  }
-
-  /**
-   * Cache a new key/value pair
-   *
-   * @param {String} key - Key to be cached
-   * @param {*} value - Value to be cached
-   */
-  _cache (key, value) {
-    this.cached[key] = value
-
-    return value
-  }
-
-  /**
-   * Clear key (or all keys) from cache
-   *
-   * @param {String} [key] - Optional key to clear from cache, otherwise clear all
-   */
-  clearCache (key) {
-    if (key &amp;&amp; this.cached[key]) {
-      delete this.cached[key]
-    } else {
-      this.cached = {}
-    }
+  collection (name, params = {}) {
+    return this.collections(params).then(collections => {
+      return Promise.resolve(collections.find(coll => coll.name === name))
+    })
   }
 }
 
-module.exports = Base
+module.exports = Jekyll
 </code></pre>
         </article>
     </section>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Collection - Documentation</title>
+    <title>Jekyll - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Collection</h1>
+    <h1 class="page-title">Jekyll</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        Collection
+        Jekyll
         </h2>
         
-            <div class="class-description"><p>Collection class</p></div>
+            <div class="class-description"><p>Jekyll class</p></div>
         
     
 </header>
@@ -60,14 +60,14 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Collection"><span class="type-signature"></span>new Collection<span class="signature">(options)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Jekyll"><span class="type-signature"></span>new Jekyll<span class="signature">(options)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Create a Collection object</p>
+    <p>Create a new Jekyll object</p>
 </div>
 
 
@@ -103,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line10">line 10</a>
+        <a href="Jekyll.js.html">Jekyll.js</a>, <a href="Jekyll.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -164,7 +164,7 @@
             
 
             <td class="description last">
-                <p>Options for collection</p>
+                <p>Options for this Jekyll instance</p>
                 
                     
 
@@ -190,13 +190,13 @@
 
         <tr>
             
-                <td class="name"><code>jekyll</code></td>
+                <td class="name"><code>github</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>Object</code></span>
+<span class="param-type"><code><a href="GitHub.html">GitHub</a></code></span>
 
 
             
@@ -207,7 +207,7 @@
             
 
             <td class="description last">
-                <p>The Jekyll instance for this collection</p>
+                <p>GitHub instance for this Jekyll object</p>
                 
             </td>
         </tr>
@@ -216,7 +216,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>owner</code></td>
             
 
             <td class="type">
@@ -233,7 +233,7 @@
             
 
             <td class="description last">
-                <p>The name of this collection</p>
+                <p>Owner name of repo for this Jekyll object</p>
                 
             </td>
         </tr>
@@ -242,7 +242,7 @@
 
         <tr>
             
-                <td class="name"><code>path</code></td>
+                <td class="name"><code>repo</code></td>
             
 
             <td class="type">
@@ -259,7 +259,7 @@
             
 
             <td class="description last">
-                <p>The path to this collection</p>
+                <p>Name of repo for this Jekyll object</p>
                 
             </td>
         </tr>
@@ -316,14 +316,14 @@
 
     
 
-    <h4 class="name" id="content"><span class="type-signature"></span>content<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
+    <h4 class="name" id="collection"><span class="type-signature"></span>collection<span class="signature">(name, params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Collection.html">Collection</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Get content for this collection (using defaultsKey method)</p>
+    <p>Load a specific collection by name</p>
 </div>
 
 
@@ -359,7 +359,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line108">line 108</a>
+        <a href="Jekyll.js.html">Jekyll.js</a>, <a href="Jekyll.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -380,233 +380,6 @@
 
     <h5>Parameters:</h5>
     
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Additional params (sent to github)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise.&lt;String></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <ul>
-<li>Returns promise with parsed content</li>
-</ul>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="createItem"><span class="type-signature"></span>createItem<span class="signature">(data, params<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Create a new item in this collection</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line167">line 167</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Data for new collection item</p>
-                
-                    
 
 <table class="params">
     <thead>
@@ -657,442 +430,7 @@
             
 
             <td class="description last">
-                <p>Name for new collection item</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fields</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Fields for new collection item</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>content</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>String</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Content for new collection item</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Additional params (sent to github)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="defaults"><span class="type-signature"></span>defaults<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Get defaults for a collection (from &quot;_fields.md&quot; file in collection dir)</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line85">line 85</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Additional params (sent to github)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise.&lt;Object></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <ul>
-<li>Returns promise with parsed data</li>
-</ul>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="defaultsKey"><span class="type-signature"></span>defaultsKey<span class="signature">(key, params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Load a single key from resolved defaults (fields or content)</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line96">line 96</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>key</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>String</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Key to be loaded from defaults</p>
+                <p>Name of collection to load</p>
                 
             </td>
         </tr>
@@ -1161,7 +499,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Promise.&lt;Object></code></span>
+<span class="param-type"><code>Promise.&lt;<a href="Collection.html">Collection</a>></code></span>
 
 
     </dd>
@@ -1170,7 +508,7 @@
 
 <div class="param-desc">
     <ul>
-<li>Returns promise with parsed data for specified key</li>
+<li>Returns promise with a single Collection</li>
 </ul>
 </div>
 
@@ -1186,14 +524,14 @@
 
     
 
-    <h4 class="name" id="fields"><span class="type-signature"></span>fields<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="collections"><span class="type-signature"></span>collections<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Get fields for this collection (using defaultsKey method)</p>
+    <p>Load collections for this Jekyll instance</p>
 </div>
 
 
@@ -1229,181 +567,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line118">line 118</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>params</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Object</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Additional params (sent to github)</p>
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise.&lt;Object></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    <ul>
-<li>Returns promise with parsed fields</li>
-</ul>
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="items"><span class="type-signature"></span>items<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Load items for this collection</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line128">line 128</a>
+        <a href="Jekyll.js.html">Jekyll.js</a>, <a href="Jekyll.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -1518,7 +682,7 @@
 
 <div class="param-desc">
     <ul>
-<li>Returns promise with array of CollectionItem objects</li>
+<li>Returns promise with array of Collections</li>
 </ul>
 </div>
 
@@ -1534,14 +698,14 @@
 
     
 
-    <h4 class="name" id="parsePath"><span class="type-signature"></span>parsePath<span class="signature">(path, params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="config"><span class="type-signature"></span>config<span class="signature">(params<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Parse Jekyll file path</p>
+    <p>Load Jekyll config from repo (_config.yaml or _config.toml)</p>
 </div>
 
 
@@ -1577,7 +741,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Collection.js.html">Collection.js</a>, <a href="Collection.js.html#line38">line 38</a>
+        <a href="Jekyll.js.html">Jekyll.js</a>, <a href="Jekyll.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -1619,40 +783,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>String</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                <p>Path to be parsed (for Jekyll front matter + markdown content)</p>
-                
-            </td>
-        </tr>
-
     
 
         <tr>
@@ -1726,7 +856,7 @@
 
 <div class="param-desc">
     <ul>
-<li>Returns promise with parsed data</li>
+<li>Returns promise with response data</li>
 </ul>
 </div>
 
