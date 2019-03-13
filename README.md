@@ -14,3 +14,5 @@
 
 # node-houndstooth-sdk
 NodeJS SDK for Houndstooth Editor
+
+[Documentation](https://bowtie-co.github.io/node-houndstooth-sdk/)
