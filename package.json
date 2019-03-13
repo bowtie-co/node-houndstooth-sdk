@@ -32,6 +32,11 @@
   "bugs": {
     "url": "https://github.com/bowtie-co/node-houndstooth-sdk/issues"
   },
+  "standard": {
+    "ignore": [
+      "docs/*"
+    ]
+  },
   "homepage": "https://github.com/bowtie-co/node-houndstooth-sdk#readme",
   "dependencies": {
     "@bowtie/utils": "^0.3.1",

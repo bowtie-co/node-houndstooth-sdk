@@ -1,4 +1,45 @@
-const yaml = require('js-yaml')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Collection.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Base.html">Base</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Base.html#_cache">_cache</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Base.html#_cached">_cached</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Base.html#_isCached">_isCached</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Base.html#_params">_params</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Base.html#clearCache">clearCache</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Collection.html">Collection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#content">content</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#createItem">createItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#defaults">defaults</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#defaultsKey">defaultsKey</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#fields">fields</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#items">items</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Collection.html#parsePath">parsePath</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Collection.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const yaml = require('js-yaml')
 const { verifyRequired } = require('@bowtie/utils')
 
 const Base = require('./Base')
@@ -33,7 +74,7 @@ class Collection extends Base {
    *
    * @param {String} path - Path to be parsed (for Jekyll front matter + markdown content)
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<Object>} - Returns promise with parsed data
+   * @returns {Promise&lt;Object>} - Returns promise with parsed data
    */
   parsePath (path, params = {}) {
     return new Promise(
@@ -80,7 +121,7 @@ class Collection extends Base {
    * Get defaults for a collection (from "_fields.md" file in collection dir)
    *
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<Object>} - Returns promise with parsed data
+   * @returns {Promise&lt;Object>} - Returns promise with parsed data
    */
   defaults (params = {}) {
     return this.parsePath(`${this.path}/_fields.md`, params)
@@ -91,7 +132,7 @@ class Collection extends Base {
    *
    * @param {String} key - Key to be loaded from defaults
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<Object>} - Returns promise with parsed data for specified key
+   * @returns {Promise&lt;Object>} - Returns promise with parsed data for specified key
    */
   defaultsKey (key, params = {}) {
     return this.defaults(params).then(defaults => {
@@ -103,7 +144,7 @@ class Collection extends Base {
    * Get content for this collection (using defaultsKey method)
    *
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<String>} - Returns promise with parsed content
+   * @returns {Promise&lt;String>} - Returns promise with parsed content
    */
   content (params = {}) {
     return this.defaultsKey('content', params)
@@ -113,7 +154,7 @@ class Collection extends Base {
    * Get fields for this collection (using defaultsKey method)
    *
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<Object>} - Returns promise with parsed fields
+   * @returns {Promise&lt;Object>} - Returns promise with parsed fields
    */
   fields (params = {}) {
     return this.defaultsKey('fields', params)
@@ -123,7 +164,7 @@ class Collection extends Base {
    * Load items for this collection
    *
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<Array>} - Returns promise with array of CollectionItem objects
+   * @returns {Promise&lt;Array>} - Returns promise with array of CollectionItem objects
    */
   items (params = {}) {
     return new Promise(
@@ -177,3 +218,22 @@ class Collection extends Base {
 }
 
 module.exports = Collection
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 12:42:50 GMT-0600 (MDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
