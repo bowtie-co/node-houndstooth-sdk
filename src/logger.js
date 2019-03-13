@@ -2,6 +2,14 @@
 const { createLogger, format, transports } = require('winston')
 const { combine, timestamp, label, printf } = format
 
+const ignoreProdTest = format((info, opts) => {
+  if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
+    return false
+  }
+
+  return info
+})
+
 const myFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label}] ${level}: ${message}`
 })
@@ -17,18 +25,14 @@ const logger = createLogger({
     silly: 5
   },
   format: combine(
+    ignoreProdTest(),
     label({ label: 'Houndstooth' }),
     timestamp(),
     myFormat
   ),
   transports: [
-    new transports.File({ filename: 'error.log', level: 'error' }),
-    new transports.File({ filename: 'combined.log' })
+    new transports.Console()
   ]
 })
-
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  logger.add(new transports.Console())
-}
 
 module.exports = logger
