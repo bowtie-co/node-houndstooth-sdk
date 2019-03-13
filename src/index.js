@@ -3,8 +3,7 @@ const {
   Collection,
   CollectionItem,
   GitHub,
-  Jekyll,
-  Repo
+  Jekyll
 } = require('./models')
 
 module.exports = {
@@ -12,6 +11,5 @@ module.exports = {
   Collection,
   CollectionItem,
   GitHub,
-  Jekyll,
-  Repo
+  Jekyll
 }

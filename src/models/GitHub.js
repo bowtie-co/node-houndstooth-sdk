@@ -46,7 +46,17 @@ class GitHub extends Base {
           async.whilst(
             () => nextPage !== null,
             (callback) => {
-              action(Object.assign({}, params, { page: nextPage, per_page: '100' }))
+              const actionParams = Object.assign({}, params, { page: nextPage, per_page: '100' })
+
+              if (!this.cache) {
+                Object.assign(actionParams, {
+                  headers: {
+                    'If-None-Match': ''
+                  }
+                })
+              }
+
+              action(actionParams)
                 .then(response => {
                   const pagination = parse(response.headers.link)
                   nextPage = pagination && pagination['next'] ? pagination['next']['page'] : null
@@ -346,6 +356,14 @@ class GitHub extends Base {
     return new Promise(
       (resolve, reject) => {
         const content = {}
+
+        if (!this.cache) {
+          Object.assign(options, {
+            headers: {
+              'If-None-Match': ''
+            }
+          })
+        }
 
         this.octokit.repos.getContents(options)
           .then(resp => {

@@ -25,7 +25,7 @@ class Jekyll extends Base {
 
     this.repoPath = `${owner}/${repo}`
     this.repoParams = { owner, repo }
-    this.defaultParams = this.repoParams
+    this.defaultParams = Object.assign({}, this.repoParams)
   }
 
   /**

@@ -112,6 +112,12 @@ describe('Jekyll', function () {
     expect(newItem.fields).to.eql(newItemFields)
     expect(newItem.markdown).to.eql(newItemMarkdown)
 
+    let items = await collection.items()
+
+    const findNewItem = items.find(item => item.name === newItemName)
+
+    expect(findNewItem).to.be.an.instanceof(CollectionItem)
+
     const newItemSha = newItem.sha
     const updatedMarkdown = `\nNEW CONTENT! ${newItem.sha}\n`
 
@@ -130,5 +136,11 @@ describe('Jekyll', function () {
     })
 
     expect(deletedItem.name).to.eql(newItemName)
+
+    items = await collection.items()
+
+    const findDeletedItem = items.find(item => item.name === deletedItem)
+
+    expect(findDeletedItem).to.be.undefined()
   })
 })
