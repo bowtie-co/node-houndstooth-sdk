@@ -1,6 +1,6 @@
 {
   "name": "@bowtie/houndstooth-sdk",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "SDK for Houndstooth Editor",
   "main": "index.js",
   "scripts": {
