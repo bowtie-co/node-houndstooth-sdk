@@ -45,8 +45,10 @@ const test = async (ref = 'master') => {
       const items = await collection.items({ ref })
 
       items.reduce((promiseChain, item) => {
-        item.markdown = `\nNEW CONTENT! ${item.sha}\n`
-        return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
+        return promiseChain.then(() => item.rename(`new-${item.name}`, { ref, message: 'Rename item' }))
+
+        // item.markdown = `\nNEW CONTENT! ${item.sha}\n`
+        // return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
       }, Promise.resolve()).then(() => {
         console.log('Done saving items')
 

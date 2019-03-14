@@ -156,6 +156,30 @@ class CollectionItem extends Base {
       return Promise.resolve(this)
     })
   }
+
+  /**
+   * Rename this CollectionItem
+   *
+   * @param {String} name - New name for this item
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<CollectionItem>} - Returns promise with itself
+   */
+  rename (name, params = {}) {
+    return this.delete(params).then(() => {
+      const { fields, content } = this
+
+      return this.collection.createItem({
+        name,
+        fields,
+        content,
+        markdown: content
+      }, params).then(item => {
+        Object.assign(this, item)
+
+        return Promise.resolve(this)
+      })
+    })
+  }
 }
 
 module.exports = CollectionItem

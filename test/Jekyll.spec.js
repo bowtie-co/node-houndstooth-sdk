@@ -143,4 +143,31 @@ describe('Jekyll', function () {
 
     expect(findDeletedItem).to.be.undefined()
   })
+
+  it('can rename an item from a collection', async function () {
+    const jekyll = new Jekyll(jekyllParams)
+
+    const collection = await jekyll.collection('posts')
+
+    expect(collection).to.be.an.instanceof(Collection)
+
+    let items = await collection.items()
+
+    expect(items.length).to.be.greaterThan(0)
+
+    expect(items[0]).to.be.an.instanceof(CollectionItem)
+
+    const newName = `changed-name-${Date.now()}.md`
+
+    const renamedItem = await items[0].rename(newName, { message: 'Rename item from sdk!' })
+
+    expect(renamedItem.name).to.eql(newName)
+
+    items = await collection.items()
+
+    const findRenamedItem = items.find(item => item.name === newName)
+
+    expect(findRenamedItem).to.be.an.instanceof(CollectionItem)
+    expect(findRenamedItem.name).to.eql(newName)
+  })
 })
