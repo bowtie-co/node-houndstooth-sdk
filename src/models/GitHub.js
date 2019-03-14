@@ -67,7 +67,7 @@ class GitHub extends Base {
             },
             (err, n) => {
               if (err) {
-                this.emit('error', err)
+                this.emit('err', err)
                 reject(err)
               } else {
                 resolve({
@@ -86,7 +86,7 @@ class GitHub extends Base {
               })
             })
             .catch(err => {
-              this.emit('error', err)
+              this.emit('err', err)
               reject(err)
             })
         }
@@ -348,7 +348,7 @@ class GitHub extends Base {
           })
         })
           .catch(err => {
-            this.emit('error', err)
+            this.emit('err', err)
             reject(err)
           })
       }
@@ -412,7 +412,7 @@ class GitHub extends Base {
                 }
               }, err => {
                 if (err) {
-                  this.emit('error', err)
+                  this.emit('err', err)
                   reject(err)
                 } else {
                   resolve(content)
@@ -431,7 +431,7 @@ class GitHub extends Base {
             }
           })
           .catch(err => {
-            this.emit('error', err)
+            this.emit('err', err)
             reject(err)
           })
       }
