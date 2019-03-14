@@ -67,6 +67,7 @@ class GitHub extends Base {
             },
             (err, n) => {
               if (err) {
+                this.emit('error', err)
                 reject(err)
               } else {
                 resolve({
@@ -84,7 +85,10 @@ class GitHub extends Base {
                 pages: parse(resp.headers.link)
               })
             })
-            .catch(reject)
+            .catch(err => {
+              this.emit('error', err)
+              reject(err)
+            })
         }
       }
     )
@@ -343,7 +347,10 @@ class GitHub extends Base {
             })
           })
         })
-          .catch(reject)
+          .catch(err => {
+            this.emit('error', err)
+            reject(err)
+          })
       }
     )
   }
@@ -405,6 +412,7 @@ class GitHub extends Base {
                 }
               }, err => {
                 if (err) {
+                  this.emit('error', err)
                   reject(err)
                 } else {
                   resolve(content)
@@ -422,7 +430,10 @@ class GitHub extends Base {
               resolve(content)
             }
           })
-          .catch(reject)
+          .catch(err => {
+            this.emit('error', err)
+            reject(err)
+          })
       }
     )
   }

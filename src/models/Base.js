@@ -1,9 +1,11 @@
+const EventEmitter = require('eventemitter2')
+
 const logger = require('../logger')
 
 /**
  * Base class for shared logic
  */
-class Base {
+class Base extends EventEmitter {
   /**
    * Constructor for a Base object
    *
@@ -11,6 +13,8 @@ class Base {
    * @param {Object} [options] - Options for this object, copied onto itself
    */
   constructor (options = {}) {
+    super()
+
     this.logger = logger
     this.cached = {}
     this.defaultParams = {}
