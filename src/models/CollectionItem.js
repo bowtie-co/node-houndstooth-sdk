@@ -134,7 +134,7 @@ class CollectionItem extends Base {
       this.logger.info('Updated item file: ' + this.path)
       this.collection.clearCache(this.path)
 
-      return this.reload()
+      return this.reload(params)
     })
   }
 
