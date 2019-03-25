@@ -52,14 +52,17 @@ class Collection extends Base {
 
           try {
             const fileContent = Buffer.from(file.content, 'base64').toString()
-            const fileParts = fileContent.split('---')
+            const fileParts = fileContent.split('---').filter(field => field)
 
-            if (fileParts.length > 1) {
-              defaults['fields'] = yaml.safeLoad(fileParts[1])
+            this.logger.info(fileParts)
+            if (fileParts.length > 0) {
+              defaults['fields'] = yaml.safeLoad(fileParts[0])
             }
-
-            if (fileParts.length > 2) {
-              defaults['content'] = fileParts[2]
+            
+            if (fileParts.length > 1) {
+              fileParts.shift()
+              defaults['content'] = fileParts.join('---')
+              
             }
           } catch (err) {
             this.logger.warn(`Invalid collection fields: ${this.path}`)
