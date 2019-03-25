@@ -52,14 +52,14 @@ class Collection extends Base {
 
           try {
             const fileContent = Buffer.from(file.content, 'base64').toString()
-            const fileParts = fileContent.split('---').filter(field => field)
+            const fileParts = fileContent.split('---') 
 
-            this.logger.info(fileParts)
-            if (fileParts.length > 0) {
-              defaults['fields'] = yaml.safeLoad(fileParts[0])
+            if (fileParts.length > 1) {
+              defaults['fields'] = yaml.safeLoad(fileParts[1])
             }
             
-            if (fileParts.length > 1) {
+            if (fileParts.length > 2) {
+              fileParts.shift()
               fileParts.shift()
               defaults['content'] = fileParts.join('---')
               
