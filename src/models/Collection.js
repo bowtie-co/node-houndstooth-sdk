@@ -59,7 +59,9 @@ class Collection extends Base {
             }
 
             if (fileParts.length > 2) {
-              defaults['content'] = fileParts[2]
+              fileParts.shift()
+              fileParts.shift()
+              defaults['content'] = fileParts.join('---')
             }
           } catch (err) {
             this.logger.warn(`Invalid collection fields: ${this.path}`)

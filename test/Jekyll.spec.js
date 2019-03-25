@@ -87,7 +87,7 @@ describe('Jekyll', function () {
   it('can create/update/delete items from a collection', async function () {
     const jekyll = new Jekyll(jekyllParams)
     const newItemName = `new-item-${Date.now()}.md`
-    const newItemMarkdown = 'Hello world!'
+    const newItemMarkdown = 'Hello world! --- this should be a part of markdown'
     const newItemFields = {
       abc: '123',
       stuff: 'things',
