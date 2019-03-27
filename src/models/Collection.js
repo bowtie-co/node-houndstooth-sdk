@@ -31,7 +31,7 @@ class Collection extends Base {
   /**
    * Parse Jekyll file path
    *
-   * @param {String} path - Path to be parsed (for Jekyll front matter + markdown content)
+   * @param {String} path - Path to be parsed (for Jekyll front matter + body content)
    * @param {Object} [params] - Additional params (sent to github)
    * @returns {Promise<Object>} - Returns promise with parsed data
    */
@@ -47,7 +47,7 @@ class Collection extends Base {
         this.github.files(this._params(params, { path })).then(({ file }) => {
           const defaults = {
             fields: {},
-            content: ''
+            body: ''
           }
 
           try {
@@ -61,7 +61,7 @@ class Collection extends Base {
             if (fileParts.length > 2) {
               fileParts.shift()
               fileParts.shift()
-              defaults['content'] = fileParts.join('---')
+              defaults['body'] = fileParts.join('---')
             }
           } catch (err) {
             this.logger.warn(`Invalid collection fields: ${this.path}`)
@@ -89,7 +89,7 @@ class Collection extends Base {
   }
 
   /**
-   * Load a single key from resolved defaults (fields or content)
+   * Load a single key from resolved defaults (fields or body)
    *
    * @param {String} key - Key to be loaded from defaults
    * @param {Object} [params] - Additional params (sent to github)
@@ -102,13 +102,13 @@ class Collection extends Base {
   }
 
   /**
-   * Get content for this collection (using defaultsKey method)
+   * Get body for this collection (using defaultsKey method)
    *
    * @param {Object} [params] - Additional params (sent to github)
-   * @returns {Promise<String>} - Returns promise with parsed content
+   * @returns {Promise<String>} - Returns promise with parsed body
    */
-  content (params = {}) {
-    return this.defaultsKey('content', params)
+  body (params = {}) {
+    return this.defaultsKey('body', params)
   }
 
   /**
@@ -163,7 +163,7 @@ class Collection extends Base {
    * @param {Object} data - Data for new collection item
    * @param {String} data.name - Name for new collection item
    * @param {Object} [data.fields] - Fields for new collection item
-   * @param {String} [data.content] - Content for new collection item
+   * @param {String} [data.body] - Content for new collection item
    * @param {Object} [params] - Additional params (sent to github)
    */
   createItem (data, params = {}) {

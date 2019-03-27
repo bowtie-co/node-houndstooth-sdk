@@ -41,7 +41,7 @@ class CollectionItem extends Base {
   init (params = {}) {
     return this.defaults(params).then(defaults => {
       this.fields = defaults['fields']
-      this.content = defaults['content']
+      this.body = defaults['body']
 
       return Promise.resolve(this)
     })
@@ -72,7 +72,7 @@ class CollectionItem extends Base {
   }
 
   /**
-   * Get defaults (current fields & content) for this collection item
+   * Get defaults (current fields & body) for this collection item
    *
    * @param {Object} [params] - Additional params (sent to github)
    * @returns {Promise<Object>} - Returns promise with defaults
@@ -84,7 +84,7 @@ class CollectionItem extends Base {
   /**
    * Get specific default key for this collection item
    *
-   * @param {String} key - Key for default to get (fields or content)
+   * @param {String} key - Key for default to get (fields or body)
    * @param {Object} [params] - Additional params (sent to github)
    * @returns {Promise<Object|String>} - Returns promise with requested default key data
    */
@@ -102,13 +102,13 @@ class CollectionItem extends Base {
    */
   contentBase64 (params = {}) {
     const fields = this.fields || {}
-    const content = this.content || ''
+    const body = this.body || ''
 
-    return Buffer.from(`---\n${yaml.safeDump(fields)}\n---\n${content}\n`).toString('base64')
+    return Buffer.from(`---\n${yaml.safeDump(fields)}\n---\n${body}\n`).toString('base64')
   }
 
   // loadContent (params = {}) {
-  //   return this.defaultsKey('content', params)
+  //   return this.defaultsKey('body', params)
   // }
 
   // loadFields (params = {}) {
@@ -166,16 +166,14 @@ class CollectionItem extends Base {
    */
   rename (name, params = {}) {
     return this.delete(params).then(() => {
-      const { fields, content } = this
-      this.logger.info(`renaming file...content: ${content}`)
+      const { fields, body } = this
 
       return this.collection.createItem({
         name,
         fields,
-        content
+        body
       }, params).then(item => {
         Object.assign(this, item)
-
         return Promise.resolve(this)
       })
     })
