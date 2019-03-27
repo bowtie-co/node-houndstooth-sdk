@@ -87,7 +87,7 @@ describe('Jekyll', function () {
   it('can create/update/delete items from a collection', async function () {
     const jekyll = new Jekyll(jekyllParams)
     const newItemName = `new-item-${Date.now()}.md`
-    const newItemMarkdown = 'Hello world! --- this should be a part of markdown'
+    const newItemContent = 'Hello world! --- this should be a part of content'
     const newItemFields = {
       abc: '123',
       stuff: 'things',
@@ -101,7 +101,7 @@ describe('Jekyll', function () {
     const newItem = await collection.createItem({
       name: newItemName,
       fields: newItemFields,
-      markdown: newItemMarkdown
+      content: newItemContent
     }, {
       message: 'Created an item from sdk!'
     })
@@ -110,7 +110,7 @@ describe('Jekyll', function () {
     expect(newItem.sha).to.be.a('string')
     expect(newItem.name).to.eql(newItemName)
     expect(newItem.fields).to.eql(newItemFields)
-    expect(newItem.markdown).to.eql(newItemMarkdown)
+    expect(newItem.content).to.eql(newItemContent)
 
     let items = await collection.items()
 
@@ -119,9 +119,9 @@ describe('Jekyll', function () {
     expect(findNewItem).to.be.an.instanceof(CollectionItem)
 
     const newItemSha = newItem.sha
-    const updatedMarkdown = `\nNEW CONTENT! ${newItem.sha}\n`
+    const updatedContent = `\nNEW CONTENT! ${newItem.sha}\n`
 
-    newItem.markdown = updatedMarkdown
+    newItem.content = updatedContent
 
     const updatedItem = await newItem.save({
       message: 'Updated item from sdk!'
@@ -129,7 +129,7 @@ describe('Jekyll', function () {
 
     expect(updatedItem.sha).to.not.eql(newItemSha)
     expect(updatedItem.name).to.eql(newItemName)
-    expect(updatedItem.markdown).to.eql(updatedMarkdown)
+    expect(updatedItem.content).to.eql(updatedContent)
 
     const deletedItem = await updatedItem.delete({
       message: 'Deleted item from sdk!'
