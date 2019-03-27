@@ -164,7 +164,6 @@ class Collection extends Base {
    * @param {String} data.name - Name for new collection item
    * @param {Object} [data.fields] - Fields for new collection item
    * @param {String} [data.content] - Content for new collection item
-   * @param {String} [data.markdown] - Content for new collection item
    * @param {Object} [params] - Additional params (sent to github)
    */
   createItem (data, params = {}) {
