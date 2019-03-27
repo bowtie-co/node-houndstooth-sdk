@@ -41,7 +41,7 @@ class CollectionItem extends Base {
   init (params = {}) {
     return this.defaults(params).then(defaults => {
       this.fields = defaults['fields']
-      this.markdown = defaults['content']
+      this.content = defaults['content']
 
       return Promise.resolve(this)
     })
@@ -102,9 +102,9 @@ class CollectionItem extends Base {
    */
   contentBase64 (params = {}) {
     const fields = this.fields || {}
-    const markdown = this.markdown || ''
+    const content = this.content || ''
 
-    return Buffer.from(`---\n${yaml.safeDump(fields)}\n---\n${markdown}\n`).toString('base64')
+    return Buffer.from(`---\n${yaml.safeDump(fields)}\n---\n${content}\n`).toString('base64')
   }
 
   // loadContent (params = {}) {
@@ -167,12 +167,12 @@ class CollectionItem extends Base {
   rename (name, params = {}) {
     return this.delete(params).then(() => {
       const { fields, content } = this
+      this.logger.info(`renaming file...content: ${content}`)
 
       return this.collection.createItem({
         name,
         fields,
-        content,
-        markdown: content
+        content
       }, params).then(item => {
         Object.assign(this, item)
 

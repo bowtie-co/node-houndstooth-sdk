@@ -28,7 +28,7 @@ const test = async (ref = 'master') => {
           stuff: 'things',
           an_array: [ 'val1', 'val2', 'val3' ]
         },
-        markdown: `HELLO WORLD!`
+        content: `HELLO WORLD!`
       }, {
         message: 'Created an item from sdk!'
       })
@@ -47,7 +47,7 @@ const test = async (ref = 'master') => {
       items.reduce((promiseChain, item) => {
         return promiseChain.then(() => item.rename(`new-${item.name}`, { ref, message: 'Rename item' }))
 
-        // item.markdown = `\nNEW CONTENT! ${item.sha}\n`
+        // item.content = `\nNEW CONTENT! ${item.sha}\n`
         // return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
       }, Promise.resolve()).then(() => {
         console.log('Done saving items')
@@ -66,13 +66,13 @@ const test = async (ref = 'master') => {
 
       //   item.logger.info(item.path)
 
-      //   item.markdown = `\nNEW CONTENT! ${item.sha}\n`
+      //   item.content = `\nNEW CONTENT! ${item.sha}\n`
 
       //   const updated = await item.save({ ref, message: 'Updated item from sdk!' })
 
-      //   // console.log(updated.markdown)
+      //   // console.log(updated.content)
 
-      //   updated.markdown = `\nOOPS I UPDATED AGAIN! ${updated.sha}\n`
+      //   updated.content = `\nOOPS I UPDATED AGAIN! ${updated.sha}\n`
 
       //   const again = await updated.save({ ref, message: 'Update again!' })
       // })
