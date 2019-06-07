@@ -157,9 +157,11 @@ describe('Jekyll', function () {
 
     expect(items[0]).to.be.an.instanceof(CollectionItem)
 
+    const item = await items[0].init()
+
     const newName = `changed-name-${Date.now()}.md`
 
-    const renamedItem = await items[0].rename(newName, { message: 'Rename item from sdk!' })
+    const renamedItem = await item.rename(newName, { message: 'Rename item from sdk!' })
 
     expect(renamedItem.name).to.eql(newName)
 
