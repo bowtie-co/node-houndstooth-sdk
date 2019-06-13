@@ -58,6 +58,10 @@ class CollectionItem extends Base {
       (resolve, reject) => {
         this.logger.info(`Reloading collection item: ${this.path}`)
 
+        if (params['content']) {
+          delete params['content']
+        }
+
         this.github.files(this._params(params)).then(({ file }) => {
           Object.assign(this, file)
 
