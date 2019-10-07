@@ -120,6 +120,54 @@ class Jekyll extends Base {
       return Promise.resolve(collections.find(coll => coll.name === name))
     })
   }
+
+  /**
+   * Load data for this Jekyll instance
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<Array>} - Returns promise with array of data files/folders
+   */
+  data (params = {}) {
+    return new Promise(
+      (resolve, reject) => {
+        if (!params['path']) {
+          params['path'] = '_data'
+        }
+
+        if (this._isCached(params['path'])) {
+          return resolve(this._cached(params['path']))
+        }
+
+        this.logger.info(`Loading jekyll data for: ${this.repoPath}`)
+
+        this.github.files(this._params(params)).then((data) => {
+          console.log(data)
+          if (data.files) {
+            resolve(this._cache(params['path'], data.files))
+          } else if (data.file) {
+            const content = Buffer.from(data.file.content, 'base64').toString()
+            let dataFields = {}
+
+            if (/toml$/.test(data.file.path)) {
+              dataFields = toml.parse(content)
+            } else {
+              dataFields = yaml.safeLoad(content)
+            }
+
+            resolve(this._cache(params['path'], dataFields))
+          } else {
+            resolve(this._cache(params['path'], data))
+            // reject(new Error(`No file/files key found for path: ${params['path']}`))
+          }
+        }).catch(err => {
+          if (err.status === 404) {
+            resolve(this._cache(params['path'], []))
+          } else {
+            reject(err)
+          }
+        })
+      }
+    )
+  }
 }
 
 module.exports = Jekyll

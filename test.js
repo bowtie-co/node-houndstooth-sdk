@@ -16,24 +16,28 @@ const test = async (ref = 'master') => {
       repo: 'test-jekyll'
     })
 
-    const collections = await j.collections({ ref })
+    const data = await j.data({ ref, recursive: true })
+
+    console.log('loaded data', data)
+
+    // const collections = await j.collections({ ref })
 
     // console.log(collections)
 
-    collections.forEach(async collection => {
-      const newItem = await collection.createItem({
-        name: `new-item-${Date.now()}.md`,
-        fields: {
-          abc: '123',
-          stuff: 'things',
-          an_array: [ 'val1', 'val2', 'val3' ]
-        },
-        content: `HELLO WORLD!`
-      }, {
-        message: 'Created an item from sdk!'
-      })
+    // collections.forEach(async collection => {
+    //   const newItem = await collection.createItem({
+    //     name: `new-item-${Date.now()}.md`,
+    //     fields: {
+    //       abc: '123',
+    //       stuff: 'things',
+    //       an_array: [ 'val1', 'val2', 'val3' ]
+    //     },
+    //     content: `HELLO WORLD!`
+    //   }, {
+    //     message: 'Created an item from sdk!'
+    //   })
 
-      console.log('CREATED', newItem.name)
+    //   console.log('CREATED', newItem.name)
       // const fields = await collection.fields({ ref })
 
       // console.log(fields)
@@ -42,22 +46,22 @@ const test = async (ref = 'master') => {
 
       // console.log(content)
 
-      const items = await collection.items({ ref })
+      // const items = await collection.items({ ref })
 
-      items.reduce((promiseChain, item) => {
-        return promiseChain.then(() => item.rename(`new-${item.name}`, { ref, message: 'Rename item' }))
+      // items.reduce((promiseChain, item) => {
+      //   return promiseChain.then(() => item.rename(`new-${item.name}`, { ref, message: 'Rename item' }))
 
-        // item.content = `\nNEW CONTENT! ${item.sha}\n`
-        // return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
-      }, Promise.resolve()).then(() => {
-        console.log('Done saving items')
+      //   // item.content = `\nNEW CONTENT! ${item.sha}\n`
+      //   // return promiseChain.then(() => item.save({ ref, message: 'Updated item from sdk!' }))
+      // }, Promise.resolve()).then(() => {
+      //   console.log('Done saving items')
 
-        if (items.length > 4) {
-          items[items.length - 1].delete({ message: 'Delete an item from sdk' }).then(item => {
-            console.log('deleted item', item.name)
-          })
-        }
-      })
+      //   if (items.length > 4) {
+      //     items[items.length - 1].delete({ message: 'Delete an item from sdk' }).then(item => {
+      //       console.log('deleted item', item.name)
+      //     })
+      //   }
+      // })
 
       // const item = items[0]
       // items.forEach(async item => {
@@ -86,7 +90,7 @@ const test = async (ref = 'master') => {
       // const items2 = await collection.items()
 
       // console.log(items2.map(i => i.name))
-    })
+    // })
 
     // const { user } = await github.user()
     // console.log(user.login)
