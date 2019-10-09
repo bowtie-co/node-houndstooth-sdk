@@ -120,6 +120,76 @@ class Jekyll extends Base {
       return Promise.resolve(collections.find(coll => coll.name === name))
     })
   }
+
+  /**
+   * Load data for this Jekyll instance
+   * @param {Object} [params] - Additional params (sent to github)
+   * @returns {Promise<Array>} - Returns promise with array of data files/folders
+   */
+  data (params = {}) {
+    return new Promise(
+      (resolve, reject) => {
+        if (!params['path']) {
+          params['path'] = '_data'
+        }
+
+        if (this._isCached(params['path'])) {
+          return resolve(this._cached(params['path']))
+        }
+
+        this.logger.info(`Loading jekyll data for: ${this.repoPath} ${params['path']}`)
+
+        this.github.files(this._params(params)).then((data) => {
+          if (data.files) {
+            return resolve(this._cache(params['path'], data.files))
+          } else if (data.file) {
+            const content = Buffer.from(data.file.content, 'base64').toString()
+
+            data['fields'] = {}
+
+            if (/toml$/.test(data.file.path)) {
+              data['fields'] = toml.parse(content)
+            } else {
+              data['fields'] = yaml.safeLoad(content)
+            }
+          }
+
+          resolve(this._cache(params['path'], data))
+        }).catch(err => {
+          if (err.status === 404) {
+            resolve(this._cache(params['path'], []))
+          } else {
+            reject(err)
+          }
+        })
+      }
+    )
+  }
+
+  /**
+   * Save data for this Jekyll instance
+   * @param {Object} params - Additional params (sent to github)
+   * @param {String} params.sha - SHA from current version of data file
+   * @param {String} params.path - Path of data file to be saved
+   * @param {Object} params.data - Data to be saved to file
+   * @param {String} params.message - Commit message to use when updating file
+   * @returns {Promise<Array>} - Returns promise with github update response
+   */
+  saveData (params = {}) {
+    verifyRequired(params, [ 'sha', 'path', 'data', 'message' ])
+
+    this.logger.info(`Saving jekyll data for: ${this.repoPath} ${params['path']}`)
+
+    params['content'] = Buffer.from(yaml.safeDump(params['data'])).toString('base64')
+
+    delete params['data']
+
+    if (params['ref'] && !params['branch']) {
+      params['branch'] = params['ref']
+    }
+
+    return this.github.updateFile(this._params(params))
+  }
 }
 
 module.exports = Jekyll
