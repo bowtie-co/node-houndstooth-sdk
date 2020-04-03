@@ -1,0 +1,14 @@
+*.js
+!jest.config.js
+!.*rc.js
+*.d.ts
+node_modules
+dist
+pack
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+tmp
+coverage
+.nyc_output
